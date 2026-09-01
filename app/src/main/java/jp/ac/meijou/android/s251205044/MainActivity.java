@@ -46,10 +46,32 @@ public class MainActivity extends AppCompatActivity {
         prefDataStore = PrefDataStore.getInstance(this);
 
         prefDataStore.getString("name")
-                .ifPresent(name -> binding.text.setText(name));
+                .ifPresent(name -> {
+//                        binding.text.setText(name)
+                    if("a".equals(name)){
+                        binding.text.setText("Aの画像");
+                        binding.imageView.setImageResource(R.drawable.ic_android);
+                    }
+                    else if("b".equals(name)){
+                        binding.text.setText("Bの画像");
+                        binding.imageView.setImageResource(R.drawable.ic_add_location);
+                    }
+                    else {
+                        binding.text.setText("知らない画像");
+                    }
+                });
 
         binding.saveButton.setOnClickListener(view -> {
             var text = binding.editTextText.getText().toString();
+            if("a".equals(text)){
+                binding.imageView.setImageResource(R.drawable.ic_android);
+            }
+            else if("b".equals(text)){
+                binding.imageView.setImageResource(R.drawable.ic_add_location);
+            }
+            else {
+                text = "unknown";
+            }
             prefDataStore.setString("name", text);
         });
 
